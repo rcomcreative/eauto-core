@@ -68,7 +68,7 @@ class User extends Authenticatable implements FilamentUser
      */
     public function teams()
     {
-        return $this->belongsToMany(\App\Models\Team::class, 'team_users')
+        return $this->belongsToMany(\Eauto\Core\Models\Team::class, 'team_users')
             ->withPivot('role')
             ->withTimestamps();
     }
@@ -76,7 +76,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function currentTeam()
     {
-        return $this->belongsTo(\App\Models\Team::class, 'current_team_id');
+        return $this->belongsTo(\Eauto\Core\Models\Team::class, 'current_team_id');
     }
 
     /**

@@ -15,7 +15,7 @@ class Team extends Model
 
     public function users()
     {
-        return $this->belongsToMany(\App\Models\User::class, 'team_users')
+        return $this->belongsToMany(\Eauto\Core\Models\User::class, 'team_users')
             ->withPivot('role')
             ->withTimestamps();
     }
