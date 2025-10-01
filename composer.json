@@ -1,0 +1,18 @@
+{
+  "name": "eauto/core",
+  "description": "Shared domain models, traits, requests, and API resources for eauto apps",
+  "type": "library",
+  "license": "proprietary",
+  "autoload": {
+    "psr-4": { "Eauto\\Core\\": "src/" }
+  },
+  "require": {
+    "php": "^8.2",
+    "laravel/framework": "^11.0"
+  },
+  "extra": {
+    "laravel": {
+      "providers": ["Eauto\\Core\\CoreServiceProvider"]
+    }
+  }
+}
