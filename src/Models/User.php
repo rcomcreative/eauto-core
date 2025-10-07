@@ -6,13 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Scout\Searchable;
-use Spatie\Permission\Traits\HasRoles; // <-- add this
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, Searchable, HasRoles; // <-- add HasRoles
-
-    // Optional but recommended so Filament & Spatie align:
+    use HasFactory, Notifiable, Searchable, HasRoles;
     protected $guard_name = 'web';
 
     protected $fillable = ['name','email','password'];
