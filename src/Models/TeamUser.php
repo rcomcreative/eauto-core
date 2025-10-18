@@ -15,4 +15,10 @@ class TeamUser extends Pivot
     protected $table = 'team_user';
     protected $fillable = ['team_id', 'user_id', 'role'];
 
+    // app/Models/TeamUser.php
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
 }
