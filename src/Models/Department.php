@@ -13,4 +13,27 @@ class Department extends Model
         'competitive_battleground','competitive_startdate','competitive_enddate',
         'sales_forecast','sales_startdate','sales_enddate','master_id','active',
     ];
+
+
+    /**
+     * Users who belong to this department via the team_users pivot.
+     * Pivot includes: team_id, role, timestamps.
+     */
+    public function users()
+    {
+        return $this->belongsToMany(\Eauto\Core\Models\User::class, 'team_users', 'department_id', 'user_id')
+            ->withPivot(['team_id', 'role'])
+            ->withTimestamps();
+    }
+
+    /**
+     * Teams associated to this department via the team_users pivot.
+     * Pivot includes: user_id, role, timestamps.
+     */
+    public function teams()
+    {
+        return $this->belongsToMany(\Eauto\Core\Models\Team::class, 'team_users', 'department_id', 'team_id')
+            ->withPivot(['user_id', 'role'])
+            ->withTimestamps();
+    }
 }
