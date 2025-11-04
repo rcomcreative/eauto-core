@@ -13,7 +13,8 @@ class Alternative extends Model
     protected $fillable = [
         'id',
         'name',
-        'abbreviation'
+        'abbreviation',
+        'color',
     ];
 
     public function vehicles() {
