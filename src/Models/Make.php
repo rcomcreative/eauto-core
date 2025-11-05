@@ -11,7 +11,7 @@ class Make extends Model
 {
     use HasFactory, Searchable;
 
-    protected  $fillable = ['name','battleground','sales_forecast','manufacturer_id','id'];
+    protected  $fillable = ['name','battleground','sales_forecast','manufacturer_id','division_id','id'];
 
     protected $casts = [
         'battleground' => 'boolean',
@@ -20,6 +20,10 @@ class Make extends Model
 
     public function manufacturer() {
         return $this->belongsTo(Manufacturer::class);
+    }
+
+    public function divisions() {
+    return $this->belongsTo(Division::class);
     }
 
     public function brandLogo() {
