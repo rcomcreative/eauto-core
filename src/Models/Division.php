@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Eauto\Core\Models;
 
 use Eauto\Core\Models\Make;
 use Illuminate\Database\Eloquent\Model;
