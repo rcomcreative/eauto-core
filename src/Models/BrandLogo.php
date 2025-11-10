@@ -12,8 +12,12 @@ class BrandLogo extends Model
 
     protected $fillable = ['make_id','name','id'];
 
-//    public function make() {
-//        return $this->belongsTo(Make::class);
-//    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('brandLogo')
+            ->useDisk('media')
+            ->withResponsiveImages();
+    }
 
 }
