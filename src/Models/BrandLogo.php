@@ -8,6 +8,8 @@ use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Support\MediaLibrary\BrandLogoPathGenerator;
+use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
 
 class BrandLogo extends Model implements HasMedia
 {
@@ -25,6 +27,12 @@ class BrandLogo extends Model implements HasMedia
         $this->addMediaCollection('brandLogo')
             ->useDisk('media')
             ->withResponsiveImages();
+    }
+
+    public function getPathGenerator(): PathGenerator|string
+    {
+        // Only BrandLogo uses this; other models keep the default
+        return BrandLogoPathGenerator::class;
     }
 
     protected static function booted(): void
