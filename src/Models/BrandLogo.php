@@ -32,7 +32,7 @@ class BrandLogo extends Model implements HasMedia
     public function getPathGenerator(): PathGenerator|string
     {
         // Only BrandLogo uses this; other models keep the default
-        return BrandLogoPathGenerator::class;
+        return app(BrandLogoPathGenerator::class);
     }
 
     protected static function booted(): void
