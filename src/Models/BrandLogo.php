@@ -16,6 +16,10 @@ class BrandLogo extends Model implements HasMedia
     protected $fillable = ['make_id','name','id'];
 
 
+    public function divisions() {
+        return $this->belongsTo(Make::class);
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('brandLogo')
