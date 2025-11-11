@@ -27,4 +27,27 @@ class BrandLogo extends Model implements HasMedia
             ->withResponsiveImages();
     }
 
+    protected static function booted(): void
+    {
+        static::saved(function (BrandLogo $logo) {
+            // Only do this if name is still empty
+            if (! empty($logo->name)) {
+                return;
+            }
+
+            $media = $logo->getFirstMedia('logo');
+
+            if (! $media) {
+                return;
+            }
+
+            // Use the media's file_name (without extension) as the logo name
+            $baseName = pathinfo($media->file_name, PATHINFO_FILENAME);
+
+            $logo->updateQuietly([
+                'name' => $baseName,
+            ]);
+        });
+    }
+
 }
