@@ -21,7 +21,7 @@ class Segment extends Model
         'sales_forecast_active' => 'boolean',
     ];
 
-    public function vehicle() {
+    public function vehicles() {
         return $this->hasMany(Vehicle::class)
             ->orderBy('make_id','ASC');
     }
