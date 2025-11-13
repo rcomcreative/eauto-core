@@ -26,6 +26,19 @@ class Segment extends Model
             ->orderBy('make_id','ASC');
     }
 
+    // Optional: convenience relationship for just truck / car:
+    public function truckVehicles()
+    {
+        return $this->vehicles()->where('Truck_flag', 1)
+            ->orderBy('make_id','ASC');
+    }
+
+    public function carVehicles()
+    {
+        return $this->vehicles()->where('Truck_flag', 0)
+            ->orderBy('make_id','ASC');
+    }
+
     public function segmentPhotos($id) {
         $vehicles = Vehicle::where('segment_id',$id)
             ->where('make_id', '!=', 0)

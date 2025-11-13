@@ -227,13 +227,14 @@ class Vehicle extends Model
         return $this->belongsToMany(Transmission::class)->withTimestamps();
     }
 
-    /*segments function*/
-    public function segments() {
-        $segments = Segment::select('id','name')
+    // If you still want a “list of all segments” helper,
+    // better as a static or a repository, not an Eloquent relationship:
+    public static function allSegments()
+    {
+        return Segment::select('id', 'name')
             ->orderBy('Truck_flag', 'ASC')
             ->orderBy('name', 'ASC')
             ->get();
-        return $segments;
     }
 
     /*vphotos function*/
