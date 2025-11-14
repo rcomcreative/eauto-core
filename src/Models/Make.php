@@ -39,6 +39,22 @@ class Make extends Model
             ->orderBy( 'name', 'ASC');
     }
 
+    public function carVehicles()
+    {
+        return $this->hasMany(Vehicle::class)
+            ->where('Active_flag', 1)
+            ->where('SalesForecast_Flag', 1)
+            ->where('Truck_flag', 0); // 0 = Car
+    }
+
+    public function truckVehicles()
+    {
+        return $this->hasMany(Vehicle::class)
+            ->where('Active_flag', 1)
+            ->where('SalesForecast_Flag', 1)
+            ->where('Truck_flag', 1); // 1 = Truck
+    }
+
     public function vehicleyears($id,$flag,$minyear,$maxyear) {
         $minmax = $maxyear-$minyear;
         $minmax = $minmax+1;
