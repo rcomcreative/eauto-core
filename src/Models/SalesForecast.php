@@ -4,11 +4,13 @@ namespace Eauto\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Laravel\Scout\Searchable;
 
-class Salesforecast extends Model
+class SalesForecast extends Model
 {
     use HasFactory, Searchable;
+
     protected  $fillable = [
         'id',
         'vehicle_id',
