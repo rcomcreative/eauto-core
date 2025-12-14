@@ -20,9 +20,14 @@ class DepartmentCustomSegmentVehicle extends Model
         'vehicle_id',
     ];
 
-    // Optional relationships
+    // Relationships
     public function customSegment()
     {
         return $this->belongsTo(DepartmentCustomSegment::class, 'department_custom_segment_id');
+    }
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class, 'vehicle_id');
     }
 }
