@@ -36,4 +36,9 @@ class Department extends Model
             ->withPivot(['user_id', 'role'])
             ->withTimestamps();
     }
+
+    public function customSegments()
+    {
+        return $this->hasMany(\Eauto\Core\Models\DepartmentCustomSegment::class, 'department_id');
+    }
 }

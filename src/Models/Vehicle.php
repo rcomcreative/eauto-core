@@ -48,6 +48,16 @@ class Vehicle extends Model
         return $query->where('cbg_id', 1);
     }
 
+    public function customSegments()
+    {
+        return $this->belongsToMany(
+            \Eauto\Core\Models\DepartmentCustomSegment::class,
+            'department_custom_segment_vehicles',
+            'vehicle_id',
+            'department_custom_segment_id'
+        )->withTimestamps();
+    }
+
     /* Segent belongsTo*/
     public function segment() {
         return $this->belongsTo(Segment::class);
