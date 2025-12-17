@@ -48,6 +48,16 @@ class Vehicle extends Model
         return $query->where('cbg_id', 1);
     }
 
+//    public function customSegments()
+//    {
+//        return $this->belongsToMany(
+//            \Eauto\Core\Models\DepartmentCustomSegment::class,
+//            'department_custom_segment_vehicles',
+//            'vehicle_id',
+//            'department_custom_segment_id'
+//        )->withTimestamps();
+//    }
+
     public function customSegments()
     {
         return $this->belongsToMany(
@@ -56,6 +66,17 @@ class Vehicle extends Model
             'vehicle_id',
             'department_custom_segment_id'
         )->withTimestamps();
+    }
+
+    /**
+     * Filament's AttachAction may look for an inverse relationship named
+     * `departmentCustomSegments()` on the related model (Vehicle) when managing
+     * DepartmentCustomSegment <-> Vehicle. Keep `customSegments()` as the
+     * canonical relationship, but provide this alias for compatibility.
+     */
+    public function departmentCustomSegments()
+    {
+        return $this->customSegments();
     }
 
     /* Segent belongsTo*/
