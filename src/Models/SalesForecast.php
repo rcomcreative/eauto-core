@@ -95,6 +95,53 @@ class SalesForecast extends Model
     }
 
     /*
+     * Add a scope for “current published release”
+     * Right now, callers must manually:
+	•	find the published release
+	•	pass its ID
+	•	then query sales_forecasts
+    • That logic will spread quickly.
+    • Use SalesForecast::forPublishedQuarter(2026, 2)->get();
+     */
+
+    public function scopeForPublishedQuarter(
+        Builder $query,
+        int $year,
+        int $quarter
+    ): Builder {
+        return $query->whereHas('forecastRelease', function ($q) use ($year, $quarter) {
+            $q->forQuarter($year, $quarter)
+                ->published();
+        });
+    }
+
+    /*
+     * a convenience scope for “latest published”
+     */
+    public function scopeForLatestPublished(Builder $query): Builder
+    {
+        return $query->whereHas('forecastRelease', function ($q) {
+            $q->published()
+                ->orderByDesc('published_at')
+                ->limit(1);
+        });
+    }
+    /*
+     * read-only guard (future-proofing)
+     * Since we’ve decided SalesForecast rows should not be manually edited, you can make that explicit:
+     */
+    protected static function booted()
+    {
+        static::updating(function () {
+            if (! app()->runningInConsole()) {
+                throw new \RuntimeException(
+                    'SalesForecast records are immutable; create a new ForecastRelease instead.'
+                );
+            }
+        });
+    }
+
+    /*
     |--------------------------------------------------------------------------
     | Scout (Search)
     |--------------------------------------------------------------------------

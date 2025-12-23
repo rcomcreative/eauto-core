@@ -21,14 +21,20 @@ class ForecastRelease extends Model
      * (We avoid making `is_published` guarded so Filament can toggle it intentionally.)
      */
     protected $fillable = [
+        'supersedes_forecast_release_id',
         'label',
         'year',
         'quarter',
+        'status',
         'is_published',
+        'published_at',
         'uploaded_by',
         'source_filename',
+        'source_file_path',
         'source_file_hash',
         'notes',
+        'import_summary',
+        'validation_errors',
     ];
 
     /**
@@ -38,6 +44,9 @@ class ForecastRelease extends Model
         'year' => 'integer',
         'quarter' => 'integer',
         'is_published' => 'boolean',
+        'published_at' => 'datetime',
+        'import_summary' => 'array',
+        'validation_errors' => 'array',
     ];
 
     /*
@@ -70,6 +79,16 @@ class ForecastRelease extends Model
         return $this->hasMany(StoredSalesForecastCalculation::class, 'forecast_release_id');
     }
 
+    public function supersedes()
+    {
+        return $this->belongsTo(self::class, 'supersedes_forecast_release_id');
+    }
+
+    public function supersededBy()
+    {
+        return $this->hasMany(self::class, 'supersedes_forecast_release_id');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Scopes
@@ -79,9 +98,16 @@ class ForecastRelease extends Model
     /**
      * Only releases visible to clients.
      */
+//    public function scopePublished(Builder $query): Builder
+//    {
+//        return $query->where('is_published', true);
+//    }
     public function scopePublished(Builder $query): Builder
     {
-        return $query->where('is_published', true);
+        return $query->where(function ($q) {
+            $q->where('status', 'published')
+                ->orWhere('is_published', true);
+        });
     }
 
     /**
@@ -89,7 +115,28 @@ class ForecastRelease extends Model
      */
     public function scopeForQuarter(Builder $query, int $year, int $quarter): Builder
     {
-        return $query->where('year', $year)->where('quarter', $quarter);
+        return $query->where('year', $year)
+            ->where('quarter', $quarter);
+    }
+
+    /*
+     * This gives you a single source of truth for:
+	•	APIs
+	•	dashboards
+	•	charts
+	•	exports
+    • use ForecastRelease::forPublishedQuarter(2026, 2)->first();
+     */
+    public function scopeForPublishedQuarter(
+        Builder $query,
+        int $year,
+        int $quarter
+    ): Builder {
+        return $query
+            ->forQuarter($year, $quarter)
+            ->published()
+            ->orderByDesc('published_at')
+            ->limit(1);
     }
 
     /*
@@ -108,7 +155,9 @@ class ForecastRelease extends Model
             'label' => $this->label,
             'year' => $this->year,
             'quarter' => $this->quarter,
+            'status' => $this->status,
             'is_published' => (bool) $this->is_published,
+            'published_at' => optional($this->published_at)->toDateTimeString(),
             'source_filename' => $this->source_filename,
         ];
     }
