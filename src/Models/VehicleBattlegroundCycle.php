@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
-class Vehiclebattlegroundcycle extends Model
+class VehicleBattlegroundCycle extends Model
 {
     use HasFactory, Searchable;
+
+    protected $table = 'vehicle_battleground_cycles';
 
     protected $fillable = [
         'vehicle_id',

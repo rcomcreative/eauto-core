@@ -84,9 +84,20 @@ class Vehicle extends Model
         return $this->belongsTo(Segment::class);
     }
 
+    public function battleground()
+    {
+        return $this->hasOne(VehicleBattleground::class);
+    }
+
+    public function battlegroundCycles()
+    {
+        return $this->hasMany(VehicleBattlegroundCycle::class)
+            ->orderBy('line_year', 'DESC');
+    }
+
     /*3 changes hasOne*/
     public function threeChanges() {
-        return $this->hasOne( Vehiclebattleground::class);
+        return $this->hasOne( VehicleBattleground::class);
     }
 
     /*keypoint hasOne*/
@@ -155,7 +166,7 @@ class Vehicle extends Model
 
     /*cycletext hasMany*/
     public function cycleText() {
-        return $this->hasMany(Vehiclebattlegroundcycle::class)
+        return $this->hasMany(VehicleBattlegroundCycle::class)
             ->orderBy('line_year', 'DESC');
     }
 
