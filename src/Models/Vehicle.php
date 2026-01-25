@@ -253,8 +253,9 @@ class Vehicle extends Model
 
     /*bodystyles belongsToMany NOTUSED*/
     public function bodystyles() {
-        return $this->belongsToMany(Bodystyle::class)
-            ->orderBy('bodystyle_id','ASC');
+        return $this->belongsToMany(Bodystyle::class, 'bodystyle_vehicle')
+            ->withTimestamps()
+            ->orderBy('bodystyles.name','ASC');
     }
 
 
