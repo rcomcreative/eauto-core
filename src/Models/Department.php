@@ -9,7 +9,7 @@ class Department extends Model
     public $timestamps = true; // live has created_at/updated_at (nullable)
     protected $fillable = [
         'companyname','companylogo','avatar_color','country','state','city','zipcode',
-        'address1','address2','dayphone','nightphone','fax','po','history','contact_email',
+        'address1','address2','dayphone','nightphone','fax','po','history','contact_email', 'send_welcome_email',
         'competitive_battleground','competitive_startdate','competitive_enddate',
         'sales_forecast','sales_startdate','sales_enddate','master_id','active',
     ];
