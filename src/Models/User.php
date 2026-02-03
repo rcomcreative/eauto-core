@@ -13,7 +13,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable, Searchable, HasRoles;
     protected $guard_name = 'web';
 
-    protected $fillable = ['name','email','password'];
+    protected $fillable = ['name','email','password','phone_number','billing_address','billing_address_line_2','billing_city', 'billing_state','billing_postal_code'];
     protected $hidden   = ['password','remember_token'];
 
     protected function casts(): array
