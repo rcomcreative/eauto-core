@@ -45,4 +45,12 @@ class User extends Authenticatable
 
         $this->forceFill(['current_team_id' => $team->id])->save();
     }
+
+    /**
+     * Forecast releases validated by this user.
+     */
+    public function validatedForecastReleases()
+    {
+        return $this->hasMany(\Eauto\Core\Models\ForecastRelease::class, 'validated_by');
+    }
 }

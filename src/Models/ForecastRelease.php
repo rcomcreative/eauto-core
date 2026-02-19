@@ -28,6 +28,8 @@ class ForecastRelease extends Model
         'status',
         'is_published',
         'published_at',
+        'validated_at',
+        'validated_by',
         'uploaded_by',
         'source_filename',
         'source_file_path',
@@ -35,6 +37,7 @@ class ForecastRelease extends Model
         'notes',
         'import_summary',
         'validation_errors',
+        'validation_warnings',
     ];
 
     /**
@@ -45,8 +48,10 @@ class ForecastRelease extends Model
         'quarter' => 'integer',
         'is_published' => 'boolean',
         'published_at' => 'datetime',
+        'validated_at' => 'datetime',
         'import_summary' => 'array',
         'validation_errors' => 'array',
+        'validation_warnings' => 'array',
     ];
 
     /*
@@ -61,6 +66,14 @@ class ForecastRelease extends Model
     public function uploadedBy()
     {
         return $this->belongsTo(\App\Models\User::class, 'uploaded_by');
+    }
+
+    /**
+     * Admin user who validated this release.
+     */
+    public function validatedBy()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'validated_by');
     }
 
     /**
@@ -158,6 +171,7 @@ class ForecastRelease extends Model
             'status' => $this->status,
             'is_published' => (bool) $this->is_published,
             'published_at' => optional($this->published_at)->toDateTimeString(),
+            'validated_at' => optional($this->validated_at)->toDateTimeString(),
             'source_filename' => $this->source_filename,
         ];
     }
