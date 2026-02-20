@@ -65,7 +65,7 @@ class ForecastRelease extends Model
      */
     public function uploadedBy()
     {
-        return $this->belongsTo(\App\Models\User::class, 'uploaded_by');
+        return $this->belongsTo(\Eauto\Core\Models\User::class, 'uploaded_by');
     }
 
     /**
@@ -73,7 +73,7 @@ class ForecastRelease extends Model
      */
     public function validatedBy()
     {
-        return $this->belongsTo(\App\Models\User::class, 'validated_by');
+        return $this->belongsTo(\Eauto\Core\Models\User::class, 'validated_by');
     }
 
     /**
@@ -89,7 +89,7 @@ class ForecastRelease extends Model
      */
     public function storedSalesForecastCalculations()
     {
-        return $this->hasMany(StoredSalesForecastCalculation::class, 'forecast_release_id');
+        return $this->hasMany(\Eauto\Core\Models\StoredSalesForecastCalculations::class, 'forecast_release_id');
     }
 
     public function supersedes()
@@ -174,5 +174,22 @@ class ForecastRelease extends Model
             'validated_at' => optional($this->validated_at)->toDateTimeString(),
             'source_filename' => $this->source_filename,
         ];
+    }
+
+    /**
+     * Stored totals tables (e.g. stored_make_sales_totals / stored_vehicle_sales_totals)
+     * are performance caches built at publish time (typically by the admin app), but the
+     * models live in this shared core package so both admin + client can read them.
+     */
+
+
+    public function storedMakeTotals()
+    {
+        return $this->hasMany(\Eauto\Core\Models\StoredMakeSalesTotal::class);
+    }
+
+    public function storedVehicleTotals()
+    {
+        return $this->hasMany(\Eauto\Core\Models\StoredVehicleSalesTotal::class);
     }
 }
