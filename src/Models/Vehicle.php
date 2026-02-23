@@ -205,7 +205,7 @@ class Vehicle extends Model
             // 3) Otherwise by id
             ->orderByRaw('CASE WHEN `order` IS NULL OR `order` = 0 THEN 1 ELSE 0 END')
             ->orderBy('order')
-            ->orderByRaw("CASE WHEN `time_stamp` IS NULL OR `time_stamp` = '' THEN 1 ELSE 0 END")
+            ->orderByRaw("CASE WHEN `time_stamp` IS NULL OR `time_stamp` = '0000-00-00' THEN 1 ELSE 0 END")
             ->orderBy('time_stamp')
             ->orderBy('id');
     }
