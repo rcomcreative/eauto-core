@@ -199,13 +199,8 @@ class Vehicle extends Model
     public function priceranges() {
         return $this->hasMany(VehiclePriceRange::class)
             ->where('delete_flag', 0)
-            // Sort precedence:
-            // 1) Explicitly ordered rows (order > 0)
-            // 2) Otherwise by time_stamp (when present)
-            // 3) Otherwise by id
             ->orderByRaw('CASE WHEN `order` IS NULL OR `order` = 0 THEN 1 ELSE 0 END')
             ->orderBy('order')
-            ->orderByRaw("CASE WHEN `time_stamp` IS NULL OR `time_stamp` = '0000-00-00' THEN 1 ELSE 0 END")
             ->orderBy('time_stamp')
             ->orderBy('id');
     }
