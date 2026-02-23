@@ -175,21 +175,39 @@ class Vehicle extends Model
     public function dimensions() {
         return $this->hasMany(VehicleDimension::class)
             ->where('delete_flag',0)
-            ->orderBy('id', 'ASC');
+            // Use `order` when it has a meaningful value; otherwise fall back to `id`.
+            // Rows with `order` = 0 or NULL are treated as "un-ordered" and are displayed after
+            // explicitly ordered rows, sorted by `id`.
+            ->orderByRaw('CASE WHEN `order` IS NULL OR `order` = 0 THEN 1 ELSE 0 END')
+            ->orderBy('order')
+            ->orderBy('id');
     }
 
     /*engines hasMany*/
     public function engines() {
         return $this->hasMany(Vehicle_engine::class)
-            ->where('delete_flag',0)
-            ->orderBy('order');
+            ->where('delete_flag', 0)
+            // Use `order` when it has a meaningful value; otherwise fall back to `id`.
+            // Rows with `order` = 0 or NULL are treated as "un-ordered" and are displayed after
+            // explicitly ordered rows, sorted by `id`.
+            ->orderByRaw('CASE WHEN `order` IS NULL OR `order` = 0 THEN 1 ELSE 0 END')
+            ->orderBy('order')
+            ->orderBy('id');
     }
 
     /*priceranges hasMany*/
     public function priceranges() {
         return $this->hasMany(VehiclePriceRange::class)
-            ->where('delete_flag',0)
-            ->orderBy('time_stamp');
+            ->where('delete_flag', 0)
+            // Sort precedence:
+            // 1) Explicitly ordered rows (order > 0)
+            // 2) Otherwise by time_stamp (when present)
+            // 3) Otherwise by id
+            ->orderByRaw('CASE WHEN `order` IS NULL OR `order` = 0 THEN 1 ELSE 0 END')
+            ->orderBy('order')
+            ->orderByRaw("CASE WHEN `time_stamp` IS NULL OR `time_stamp` = '' THEN 1 ELSE 0 END")
+            ->orderBy('time_stamp')
+            ->orderBy('id');
     }
 
     /*saleslaunch hasMany*/
@@ -209,8 +227,13 @@ class Vehicle extends Model
     /*curbrange hasMany*/
     public function curbweightranges() {
         return $this->hasMany(Vehicle_weight_range::class)
-            ->where('delete_flag',0)
-            ->orderBy('order');
+            ->where('delete_flag', 0)
+            // Use `order` when it has a meaningful value; otherwise fall back to `id`.
+            // Rows with `order` = 0 or NULL are treated as "un-ordered" and are displayed after
+            // explicitly ordered rows, sorted by `id`.
+            ->orderByRaw('CASE WHEN `order` IS NULL OR `order` = 0 THEN 1 ELSE 0 END')
+            ->orderBy('order')
+            ->orderBy('id');
     }
 
     /*cycleText hasMany start and end year*/
@@ -232,8 +255,13 @@ class Vehicle extends Model
     /*tiresizes hasMany*/
     public function tiresizes() {
         return $this->hasMany(VehicleTireSize::class)
-            ->where('delete_flag',0)
-            ->orderBy('order');
+            ->where('delete_flag', 0)
+            // Use `order` when it has a meaningful value; otherwise fall back to `id`.
+            // Rows with `order` = 0 or NULL are treated as "un-ordered" and are displayed after
+            // explicitly ordered rows, sorted by `id`.
+            ->orderByRaw('CASE WHEN `order` IS NULL OR `order` = 0 THEN 1 ELSE 0 END')
+            ->orderBy('order')
+            ->orderBy('id');
     }
 
     /*alternatives belongsToMany NOTUSED*/
