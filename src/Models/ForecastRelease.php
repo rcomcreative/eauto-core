@@ -182,14 +182,18 @@ class ForecastRelease extends Model
      * models live in this shared core package so both admin + client can read them.
      */
 
+    public function storedDepartmentSegmentTotals()
+    {
+        return $this->hasMany(\Eauto\Core\Models\StoredDepartmentSegmentSalesTotal::class, 'forecast_release_id');
+    }
 
     public function storedMakeTotals()
     {
-        return $this->hasMany(\Eauto\Core\Models\StoredMakeSalesTotal::class);
+        return $this->hasMany(\Eauto\Core\Models\StoredMakeSalesTotal::class, 'forecast_release_id');
     }
 
     public function storedVehicleTotals()
     {
-        return $this->hasMany(\Eauto\Core\Models\StoredVehicleSalesTotal::class);
+        return $this->hasMany(\Eauto\Core\Models\StoredVehicleSalesTotal::class, 'forecast_release_id');
     }
 }
