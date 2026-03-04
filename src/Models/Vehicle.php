@@ -151,7 +151,7 @@ class Vehicle extends Model
         return $this->hasOne(VehicleAutoPacificsTake::class);
     }
 
-/*press releases hasMany*/
+    /*press releases hasMany*/
     public function pdfText() {
         return $this->hasMany(Content::class)
             ->where('activeFlag',1)
@@ -313,6 +313,21 @@ class Vehicle extends Model
             ->get();
 
         return $photos;
+    }
+
+    /* stored totals (forecast releases) */
+    public function storedVehicleSalesTotals()
+    {
+        return $this->hasMany(StoredVehicleSalesTotal::class, 'vehicle_id');
+    }
+
+    /**
+     * Share totals for this vehicle (entity_type = 'vehicle').
+     */
+    public function storedShareTotals()
+    {
+        return $this->hasMany(StoredShareTotal::class, 'entity_id')
+            ->where('entity_type', 'vehicle');
     }
 
     /*salesforecast hasMany*/
@@ -480,18 +495,18 @@ class Vehicle extends Model
         return $storedcalculations;
     }
 
-/*stored calculation for 715 or 716 with min and max years*/
-public function stored_calculations($cal,$min,$max) {
-    $storedcalculations = StoredCalculation::whereBetween('sales_year',[$min,$max])
-        ->distinct('sales_year')
-        ->selectRaw('SUM(total) as total, sales_year' )
-        ->where('category_item_id', $cal)
-        ->where('sfc_id', 1)
-        ->groupBy('sales_year')
-        ->orderBy('sales_year', 'ASC')
-        ->get();
-    return $storedcalculations;
-}
+    /*stored calculation for 715 or 716 with min and max years*/
+    public function stored_calculations($cal,$min,$max) {
+        $storedcalculations = StoredCalculation::whereBetween('sales_year',[$min,$max])
+            ->distinct('sales_year')
+            ->selectRaw('SUM(total) as total, sales_year' )
+            ->where('category_item_id', $cal)
+            ->where('sfc_id', 1)
+            ->groupBy('sales_year')
+            ->orderBy('sales_year', 'ASC')
+            ->get();
+        return $storedcalculations;
+    }
     public function stored715calculations() {
         $storedcalculations = StoredCalculation::distinct('sales_year')
             ->selectRaw('SUM(total) as total, sales_year' )

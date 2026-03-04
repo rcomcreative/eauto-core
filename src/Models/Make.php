@@ -23,11 +23,29 @@ class Make extends Model
     }
 
     public function divisions() {
-    return $this->belongsTo(Division::class);
+        return $this->belongsTo(Division::class);
     }
 
     public function brandLogo() {
         return $this->hasOne(BrandLogo::class);
+    }
+
+    /**
+     * Stored make totals for a given forecast release / alternative / year / truck_flag.
+     */
+    public function storedMakeSalesTotals()
+    {
+        return $this->hasMany(StoredMakeSalesTotal::class, 'make_id');
+    }
+
+    /**
+     * Stored share totals where this make is the entity.
+     * NOTE: StoredShareTotal uses (entity_type, entity_id).
+     */
+    public function storedShareTotals()
+    {
+        return $this->hasMany(StoredShareTotal::class, 'entity_id')
+            ->where('entity_type', 'make');
     }
 
     public function vehicles() {

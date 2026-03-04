@@ -196,4 +196,20 @@ class ForecastRelease extends Model
     {
         return $this->hasMany(\Eauto\Core\Models\StoredVehicleSalesTotal::class, 'forecast_release_id');
     }
+
+    /**
+     * Market-level totals per year (Passenger Car / Light Truck / Light Vehicle).
+     */
+    public function storedMarketTotals()
+    {
+        return $this->hasMany(\Eauto\Core\Models\StoredMarketTotal::class, 'forecast_release_id');
+    }
+
+    /**
+     * Share + totals per entity (make / vehicle / segment), per year.
+     */
+    public function storedShareTotals()
+    {
+        return $this->hasMany(\Eauto\Core\Models\StoredShareTotal::class, 'forecast_release_id');
+    }
 }
