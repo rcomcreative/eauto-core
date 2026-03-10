@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class BrandLogo extends Model implements HasMedia
 {
@@ -22,7 +21,7 @@ class BrandLogo extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('brandLogo')
+        $this->addMediaCollection('logo')
             ->useDisk('media')
             ->withResponsiveImages();
     }
@@ -31,7 +30,7 @@ class BrandLogo extends Model implements HasMedia
     protected static function booted(): void
     {
         static::saved(function (BrandLogo $logo) {
-            // Only do this if name is still empty
+            // Only populate name from media if the record name is currently empty.
             if (! empty($logo->name)) {
                 return;
             }
@@ -42,11 +41,10 @@ class BrandLogo extends Model implements HasMedia
                 return;
             }
 
-            // Use the media's file_name (without extension) as the logo name
-            $baseName = pathinfo($media->file_name, PATHINFO_FILENAME);
-
+            // Keep legacy behavior: store the original media file name in `name`
+            // so backfill and existing admin/table usage stay aligned.
             $logo->updateQuietly([
-                'name' => $baseName,
+                'name' => $media->file_name,
             ]);
         });
     }
