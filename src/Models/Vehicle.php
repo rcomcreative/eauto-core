@@ -40,7 +40,7 @@ class Vehicle extends Model
 
     /* Make belone to*/
     public function make() {
-        return $this->belongsTo(Make::class);
+        return $this->belongsTo(\Eauto\Core\Models\Make::class);
     }
 
     public function scopeCbgOne($query)
@@ -81,98 +81,98 @@ class Vehicle extends Model
 
     /* Segent belongsTo*/
     public function segment() {
-        return $this->belongsTo(Segment::class);
+        return $this->belongsTo(\Eauto\Core\Models\Segment::class);
     }
 
     public function battleground()
     {
-        return $this->hasOne(VehicleBattleground::class);
+        return $this->hasOne(\Eauto\Core\Models\VehicleBattleground::class);
     }
 
     public function battlegroundCycles()
     {
-        return $this->hasMany(VehicleBattlegroundCycle::class)
+        return $this->hasMany(\Eauto\Core\Models\VehicleBattlegroundCycle::class)
             ->orderBy('line_year', 'DESC');
     }
 
     /*3 changes hasOne*/
     public function threeChanges() {
-        return $this->hasOne( VehicleBattleground::class);
+        return $this->hasOne( \Eauto\Core\Models\VehicleBattleground::class);
     }
 
     /*keypoint hasOne*/
     public function keypoint() {
-        return $this->hasOne(VehicleKeypoint::class)
+        return $this->hasOne(\Eauto\Core\Models\VehicleKeypoint::class)
             ->where('live','1');
     }
 
     /*main photo hasOne*/
     public function mainVehiclePhoto() {
-        return $this->hasOne(VehiclePhoto::class)
+        return $this->hasOne(\Eauto\Core\Models\VehiclePhoto::class)
             ->where('active',1)
             ->where('main',1);
     }
 
     /* suspension hasOne*/
     public function vehicleSuspension() {
-        return $this->hasOne(VehicleSuspension::class);
+        return $this->hasOne(\Eauto\Core\Models\VehicleSuspension::class);
     }
 
 
     /* cgequipupdate hasOne*/
     public function futureIntel()
     {
-        return $this->hasOne(VehicleFutureIntel::class);
+        return $this->hasOne(\Eauto\Core\Models\VehicleFutureIntel::class);
     }
 
     public function cgEquipUpdate()
     {
-        return $this->hasOne(VehicleCGEquipUpdate::class);
+        return $this->hasOne(\Eauto\Core\Models\VehicleCGEquipUpdate::class);
     }
 
     public function cgLaunchInfo()
     {
-        return $this->hasOne(VehicleCGLaunchInfo::class);
+        return $this->hasOne(\Eauto\Core\Models\VehicleCGLaunchInfo::class);
     }
 
     public function priorGenerationInfo()
     {
-        return $this->hasOne(VehiclePriorGenerationInfo::class);
+        return $this->hasOne(\Eauto\Core\Models\VehiclePriorGenerationInfo::class);
     }
 
     public function configPowerTrainProfile()
     {
-        return $this->hasOne(VehicleConfigPowerTrainProfile::class);
+        return $this->hasOne(\Eauto\Core\Models\VehicleConfigPowerTrainProfile::class);
     }
 
     public function autoPacificsTake()
     {
-        return $this->hasOne(VehicleAutoPacificsTake::class);
+        return $this->hasOne(\Eauto\Core\Models\VehicleAutoPacificsTake::class);
     }
 
     /*press releases hasMany*/
     public function pdfText() {
-        return $this->hasMany(Content::class)
+        return $this->hasMany(\Eauto\Core\Models\Content::class)
             ->where('activeFlag',1)
             ->where('deleteFlag', 0)
             ->orderBy('publishDate', 'DESC');
     }
     public function pdfList() {
-        return $this->hasMany( VehiclePressRelease::class)
+        return $this->hasMany( \Eauto\Core\Models\VehiclePressRelease::class)
             ->orderBy('sortColumn', 'DESC');
     }
 
 
     /*cycletext hasMany*/
     public function cycleText() {
-        return $this->hasMany(VehicleBattlegroundCycle::class)
+        return $this->hasMany(\Eauto\Core\Models\VehicleBattlegroundCycle::class)
             ->orderBy('line_year', 'DESC');
     }
 
 
     /*dimensions hasMany*/
     public function dimensions() {
-        return $this->hasMany(VehicleDimension::class)
+        return $this->hasMany(\Eauto\Core\Models\VehicleDimension::class)
             ->where('delete_flag',0)
             // Use `order` when it has a meaningful value; otherwise fall back to `id`.
             // Rows with `order` = 0 or NULL are treated as "un-ordered" and are displayed after
@@ -184,7 +184,7 @@ class Vehicle extends Model
 
     /*engines hasMany*/
     public function engines() {
-        return $this->hasMany(Vehicle_engine::class)
+        return $this->hasMany(\Eauto\Core\Models\Vehicle_engine::class)
             ->where('delete_flag', 0)
             // Use `order` when it has a meaningful value; otherwise fall back to `id`.
             // Rows with `order` = 0 or NULL are treated as "un-ordered" and are displayed after
@@ -196,7 +196,7 @@ class Vehicle extends Model
 
     /*priceranges hasMany*/
     public function priceranges() {
-        return $this->hasMany(VehiclePriceRange::class)
+        return $this->hasMany(\Eauto\Core\Models\VehiclePriceRange::class)
             ->where('delete_flag', 0)
             ->orderByRaw('CASE WHEN `order` IS NULL OR `order` = 0 THEN 1 ELSE 0 END')
             ->orderBy('order')
@@ -206,21 +206,21 @@ class Vehicle extends Model
 
     /*saleslaunch hasMany*/
     public function salesLaunchs() {
-        return $this->hasMany(VehicleSalesLaunch::class)
+        return $this->hasMany(\Eauto\Core\Models\VehicleSalesLaunch::class)
             ->where('delete_flag',0)
             ->orderBy('time_stamp');
     }
 
     /*productionstart hasMany*/
     public function productionStarts() {
-        return $this->hasMany(VehicleStartOfProduction::class)
+        return $this->hasMany(\Eauto\Core\Models\VehicleStartOfProduction::class)
             ->where('delete_flag',0)
             ->orderBy('time_stamp');
     }
 
     /*curbrange hasMany*/
     public function curbweightranges() {
-        return $this->hasMany(Vehicle_weight_range::class)
+        return $this->hasMany(\Eauto\Core\Models\Vehicle_weight_range::class)
             ->where('delete_flag', 0)
             // Use `order` when it has a meaningful value; otherwise fall back to `id`.
             // Rows with `order` = 0 or NULL are treated as "un-ordered" and are displayed after
@@ -240,7 +240,7 @@ class Vehicle extends Model
 
     /*photos hasMany*/
     public function vehiclePhotos() {
-        return $this->hasMany(VehiclePhoto::class)
+        return $this->hasMany(\Eauto\Core\Models\VehiclePhoto::class)
             ->where('active',1)
             ->orderBy('main','DESC')
             ->orderBy( 'model_year', 'DESC');
@@ -248,7 +248,7 @@ class Vehicle extends Model
 
     /*tiresizes hasMany*/
     public function tiresizes() {
-        return $this->hasMany(VehicleTireSize::class)
+        return $this->hasMany(\Eauto\Core\Models\VehicleTireSize::class)
             ->where('delete_flag', 0)
             // Use `order` when it has a meaningful value; otherwise fall back to `id`.
             // Rows with `order` = 0 or NULL are treated as "un-ordered" and are displayed after
@@ -260,22 +260,22 @@ class Vehicle extends Model
 
     /*alternatives belongsToMany NOTUSED*/
     public function alternatives() {
-        return $this->belongsToMany(Alternative::class)->withTimestamps();
+        return $this->belongsToMany(\Eauto\Core\Models\Alternative::class)->withTimestamps();
     }
 
     /*drives belongsToMany*/
     public function drives() {
-        return $this->belongsToMany(Drive::class)->withTimestamps();
+        return $this->belongsToMany(\Eauto\Core\Models\Drive::class)->withTimestamps();
     }
 
     /*seats belongsToMany*/
     public function seats() {
-        return $this->belongsToMany(Seat::class)->withTimestamps();
+        return $this->belongsToMany(\Eauto\Core\Models\Seat::class)->withTimestamps();
     }
 
     /*bodystyles belongsToMany NOTUSED*/
     public function bodystyles() {
-        return $this->belongsToMany(Bodystyle::class, 'bodystyle_vehicle')
+        return $this->belongsToMany(\Eauto\Core\Models\Bodystyle::class, 'bodystyle_vehicle')
             ->withTimestamps()
             ->orderBy('bodystyles.name','ASC');
     }
@@ -284,12 +284,12 @@ class Vehicle extends Model
 
     /*tags belongsToMany NOTUSED*/
     public function tags() {
-        return $this->belongsToMany(Tag::class)->withTimestamps();
+        return $this->belongsToMany(\Eauto\Core\Models\Tag::class)->withTimestamps();
     }
 
     /*transmission belongsToMany */
     public function transmissions() {
-        return $this->belongsToMany(Transmission::class)->withTimestamps();
+        return $this->belongsToMany(\Eauto\Core\Models\Transmission::class)->withTimestamps();
     }
 
     // If you still want a “list of all segments” helper,
@@ -304,7 +304,7 @@ class Vehicle extends Model
 
     /*vphotos function*/
     public function vphotos($id) {
-        $photos = VehiclePhoto::where('vehicle_id',$id)
+        $photos = \Eauto\Core\Models\VehiclePhoto::where('vehicle_id',$id)
             ->where( 'active',1)
             ->select('id','large_file_name','photo_caption','photo_credit','model_year')
             ->orderBy('main','DESC')
@@ -317,7 +317,7 @@ class Vehicle extends Model
     /* stored totals (forecast releases) */
     public function storedVehicleSalesTotals()
     {
-        return $this->hasMany(StoredVehicleSalesTotal::class, 'vehicle_id');
+        return $this->hasMany(\Eauto\Core\Models\StoredVehicleSalesTotal::class, 'vehicle_id');
     }
 
     /**
@@ -325,20 +325,20 @@ class Vehicle extends Model
      */
     public function storedShareTotals()
     {
-        return $this->hasMany(StoredShareTotal::class, 'entity_id')
+        return $this->hasMany(\Eauto\Core\Models\StoredShareTotal::class, 'entity_id')
             ->where('entity_type', 'vehicle');
     }
 
     /*salesforecast hasMany*/
     public function salesforecast() {
-        return $this->hasMany(Salesforecast::class)
+        return $this->hasMany(\Eauto\Core\Models\SalesForecast::class)
             ->orderBy('sales_year', 'DESC')
             ->orderBy('bodystyle_id', 'ASC');
     }
 
     /*sales function*/
     public function sales($id) {
-        $sales = Salesforecast::selectRaw('SUM(sales_value) as total, sales_year, bodystyle_id' )
+        $sales = \Eauto\Core\Models\SalesForecast::selectRaw('SUM(sales_value) as total, sales_year, bodystyle_id' )
             ->where('vehicle_id', $id)
             ->groupBy('sales_year')
             ->groupBy('bodystyle_id')
@@ -350,7 +350,7 @@ class Vehicle extends Model
 
     /*return all bodystyles for vehicle during years*/
     public function vehicle_bodystyle_sales($id,$minyear, $maxyear ) {
-        $sales = Salesforecast::whereBetween('sales_year',[$minyear,$maxyear])
+        $sales = \Eauto\Core\Models\SalesForecast::whereBetween('sales_year',[$minyear,$maxyear])
             ->where('vehicle_id', $id)
             ->selectRaw('SUM(sales_value) as total, sales_year, bodystyle_id' )
             ->groupBy('sales_year')
@@ -363,7 +363,7 @@ class Vehicle extends Model
 
     /*return sales for vehicle single bodystyle*/
     public function sales_vehicle($id,$bid,$minyear, $maxyear) {
-        $sales = Salesforecast::whereBetween('sales_year',[$minyear,$maxyear])
+        $sales = \Eauto\Core\Models\SalesForecast::whereBetween('sales_year',[$minyear,$maxyear])
             ->where('vehicle_id', $id)
             ->where('bodystyle_id', $bid)
             ->selectRaw('SUM(sales_value) as total, sales_year, bodystyle_id' )
@@ -389,7 +389,7 @@ class Vehicle extends Model
 
     /*return all sales for vehicle during years*/
     public function vehicle_all_sales($vid, $min,$max) {
-        $sales = Salesforecast::whereBetween('sales_year',[$min,$max])
+        $sales = \Eauto\Core\Models\SalesForecast::whereBetween('sales_year',[$min,$max])
             ->selectRaw('SUM(sales_value) as total, sales_year')
             ->where('vehicle_id', $vid)
             ->groupBy('sales_year')
@@ -425,7 +425,7 @@ class Vehicle extends Model
 
     /*vehiclesales function*/
     public function vehiclesales($id) {
-        $sales = Salesforecast::selectRaw('SUM(sales_value) as total, sales_year' )
+        $sales = \Eauto\Core\Models\SalesForecast::selectRaw('SUM(sales_value) as total, sales_year' )
             ->where('vehicle_id', $id)
             ->groupBy('sales_year')
             ->orderBy('sales_year','ASC')
@@ -435,47 +435,47 @@ class Vehicle extends Model
 
     /*makesales function*/
     public function makesales($make_id) {
-        $sales = DB::table('salesforecasts')
-            ->join('vehicles', 'vehicles.id', '=', 'salesforecasts.vehicle_id')
-            ->where('salesforecasts.sales_year', '>=' , 1987)
+        $sales = DB::table('sales_forecasts')
+            ->join('vehicles', 'vehicles.id', '=', 'sales_forecasts.vehicle_id')
+            ->where('sales_forecasts.sales_year', '>=' , 1987)
             ->where('vehicles.make_id', $make_id)
             ->where( 'vehicles.SalesForecast_flag',1)
             ->where('vehicles.Active_flag', 1)
-            ->selectRaw('SUM(salesforecasts.sales_value) as total, salesforecasts.sales_year' )
-            ->groupBy('salesforecasts.sales_year')
-            ->orderBy('salesforecasts.sales_year','ASC')
+            ->selectRaw('SUM(sales_forecasts.sales_value) as total, sales_forecasts.sales_year' )
+            ->groupBy('sales_forecasts.sales_year')
+            ->orderBy('sales_forecasts.sales_year','ASC')
             ->get();
         return $sales;
     }
 
     /*makecarsales*/
     public function makecarsales($make_id) {
-        $sales = DB::table('salesforecasts')
-            ->join('vehicles', 'vehicles.id', '=', 'salesforecasts.vehicle_id')
-            ->where('salesforecasts.sales_year', '>=' , 1987)
+        $sales = DB::table('sales_forecasts')
+            ->join('vehicles', 'vehicles.id', '=', 'sales_forecasts.vehicle_id')
+            ->where('sales_forecasts.sales_year', '>=' , 1987)
             ->where('vehicles.make_id', $make_id)
             ->where('Truck_flag', 1)
             ->where( 'vehicles.SalesForecast_flag',1)
             ->where('vehicles.Active_flag', 1)
-            ->selectRaw('SUM(salesforecasts.sales_value) as total, salesforecasts.sales_year' )
-            ->groupBy('salesforecasts.sales_year')
-            ->orderBy('salesforecasts.sales_year','ASC')
+            ->selectRaw('SUM(sales_forecasts.sales_value) as total, sales_forecasts.sales_year' )
+            ->groupBy('sales_forecasts.sales_year')
+            ->orderBy('sales_forecasts.sales_year','ASC')
             ->get();
         return $sales;
     }
 
     /*make truck sales*/
     public function maketrucksales($make_id) {
-        $sales = DB::table('salesforecasts')
-            ->join('vehicles', 'vehicles.id', '=', 'salesforecasts.vehicle_id')
-            ->where('salesforecasts.sales_year', '>=' , 1987)
+        $sales = DB::table('sales_forecasts')
+            ->join('vehicles', 'vehicles.id', '=', 'sales_forecasts.vehicle_id')
+            ->where('sales_forecasts.sales_year', '>=' , 1987)
             ->where('vehicles.make_id', $make_id)
             ->where('Truck_flag', 0)
             ->where( 'vehicles.SalesForecast_flag',1)
             ->where('vehicles.Active_flag', 1)
-            ->selectRaw('SUM(salesforecasts.sales_value) as total, salesforecasts.sales_year' )
-            ->groupBy('salesforecasts.sales_year')
-            ->orderBy('salesforecasts.sales_year','ASC')
+            ->selectRaw('SUM(sales_forecasts.sales_value) as total, sales_forecasts.sales_year' )
+            ->groupBy('sales_forecasts.sales_year')
+            ->orderBy('sales_forecasts.sales_year','ASC')
             ->get();
         return $sales;
 
@@ -483,7 +483,7 @@ class Vehicle extends Model
 
     /*storedcalculations function*/
     public function storedcalculations() {
-        $storedcalculations = StoredCalculation::distinct('sales_year')
+        $storedcalculations = \Eauto\Core\Models\StoredCalculation::distinct('sales_year')
             ->selectRaw('SUM(total) as total, sales_year' )
             ->where('category_item_id', 715)
             ->orWhere('category_item_id',716)
@@ -496,7 +496,7 @@ class Vehicle extends Model
 
     /*stored calculation for 715 or 716 with min and max years*/
     public function stored_calculations($cal,$min,$max) {
-        $storedcalculations = StoredCalculation::whereBetween('sales_year',[$min,$max])
+        $storedcalculations = \Eauto\Core\Models\StoredCalculation::whereBetween('sales_year',[$min,$max])
             ->distinct('sales_year')
             ->selectRaw('SUM(total) as total, sales_year' )
             ->where('category_item_id', $cal)
@@ -507,7 +507,7 @@ class Vehicle extends Model
         return $storedcalculations;
     }
     public function stored715calculations() {
-        $storedcalculations = StoredCalculation::distinct('sales_year')
+        $storedcalculations = \Eauto\Core\Models\StoredCalculation::distinct('sales_year')
             ->selectRaw('SUM(total) as total, sales_year' )
             ->where('category_item_id', 715)
             ->where('sfc_id', 1)
@@ -518,7 +518,7 @@ class Vehicle extends Model
     }
 
     public function stored716calculations() {
-        $storedcalculations = StoredCalculation::distinct('sales_year')
+        $storedcalculations = \Eauto\Core\Models\StoredCalculation::distinct('sales_year')
             ->selectRaw('SUM(total) as total, sales_year' )
             ->where('category_item_id', 716)
             ->where('sfc_id', 1)
@@ -530,7 +530,7 @@ class Vehicle extends Model
 
     /*ubodystyle function used for a short list of bodystyles*/
     public function ubodystyle($id) {
-        $bodyStyles = Salesforecast::distinct()
+        $bodyStyles = \Eauto\Core\Models\SalesForecast::distinct()
             ->where('vehicle_id', $id)
             ->orderBy('bodystyle_id','DESC')
             ->get('bodystyle_id');
@@ -555,7 +555,7 @@ class Vehicle extends Model
 
     /*salesnobody not used*/
     public function salesnobody($id) {
-        $sales = Salesforecast::selectRaw('SUM(sales_value) as total, sales_year' )
+        $sales = \Eauto\Core\Models\SalesForecast::selectRaw('SUM(sales_value) as total, sales_year' )
             ->where('vehicle_id', $id)
             ->groupBy('sales_year')
             ->orderBy('sales_year','ASC')
@@ -566,7 +566,7 @@ class Vehicle extends Model
     /*uniqueBodyStyles function
      used for full list for salesforecast left column*/
     public function uniqueBodyStyles($id) {
-        $bodyStyles = Salesforecast::distinct()
+        $bodyStyles = \Eauto\Core\Models\SalesForecast::distinct()
             ->where('vehicle_id', $id)
             ->orderBy('bodystyle_id','DESC')
             ->get('bodystyle_id');
@@ -575,9 +575,9 @@ class Vehicle extends Model
         $vehicleName = $vName[0];
         $mid = $vehicle->pluck('make_id');
         $makeID = $mid[0];
-        $make = Make::where('id',$makeID)->first();
+        $make = \Eauto\Core\Models\Make::where('id',$makeID)->first();
         $make_name = $make->name;
-        $styles = Bodystyle::get();
+        $styles = \Eauto\Core\Models\Bodystyle::get();
         $count = count($styles);
         $scount = count($bodyStyles);
         $bStyle = Array();
