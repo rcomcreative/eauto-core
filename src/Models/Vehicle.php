@@ -126,28 +126,33 @@ class Vehicle extends Model
 
 
     /* cgequipupdate hasOne*/
-    public function cgequipupdates() {
+    public function futureIntel()
+    {
+        return $this->hasOne(VehicleFutureIntel::class);
+    }
+
+    public function cgEquipUpdate()
+    {
         return $this->hasOne(VehicleCGEquipUpdate::class);
     }
 
-
-    /* cglaunchinfo hasOne*/
-    public function cglaunchinfo() {
+    public function cgLaunchInfo()
+    {
         return $this->hasOne(VehicleCGLaunchInfo::class);
     }
 
-    /* prior hasOne*/
-    public function priorgenerationinfo() {
+    public function priorGenerationInfo()
+    {
         return $this->hasOne(VehiclePriorGenerationInfo::class);
     }
 
-    /* vehicleconfig hasOne*/
-    public function vehicleconfigpowertrainprofile() {
+    public function configPowerTrainProfile()
+    {
         return $this->hasOne(VehicleConfigPowerTrainProfile::class);
     }
 
-    /* autopacifictake hasOne*/
-    public function autopacificstake() {
+    public function autoPacificsTake()
+    {
         return $this->hasOne(VehicleAutoPacificsTake::class);
     }
 

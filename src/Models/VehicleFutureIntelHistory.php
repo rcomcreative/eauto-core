@@ -4,28 +4,29 @@ namespace Eauto\Core\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Searchable;
-use Eauto\Core\Models\Traits\ArchivesNarrativeHistory;
 
-class VehicleFutureIntel extends Model
+class VehicleFutureIntelHistory extends Model
 {
-    use HasFactory, Searchable, ArchivesNarrativeHistory;
+    use HasFactory;
 
-    protected $table = 'vehicle_future_intels';
+    protected $table = 'vehicle_future_intels_history';
 
     protected $fillable = [
-        'id',
+        'source_id',
         'admin_id',
         'vehicle_id',
         'futureIntel',
         'entrydate',
         'modified',
         'live',
+        'edited_by_admin_id',
+        'archived_at',
     ];
 
     protected $casts = [
         'entrydate' => 'date',
         'modified' => 'datetime',
+        'archived_at' => 'datetime',
     ];
 
     public function vehicle()
@@ -33,14 +34,8 @@ class VehicleFutureIntel extends Model
         return $this->belongsTo(Vehicle::class);
     }
 
-    public function history()
+    public function source()
     {
-        return $this->hasMany(VehicleFutureIntelHistory::class, 'source_id');
+        return $this->belongsTo(VehicleFutureIntel::class, 'source_id');
     }
-
-    protected function getHistoryModelClass(): string
-    {
-        return VehiclePriorGenerationInfoHistory::class;
-    }
-
 }
