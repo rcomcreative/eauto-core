@@ -119,12 +119,6 @@ class Vehicle extends Model
     }
 
 
-    /* futureInten hasOne*/
-    public function futureIntel() {
-        return $this->hasOne(VehicleFutureIntel::class);
-    }
-
-
     /* cgequipupdate hasOne*/
     public function futureIntel()
     {
