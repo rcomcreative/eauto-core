@@ -5,7 +5,14 @@ namespace Eauto\Core\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 use Laravel\Scout\Searchable;
+
+enum SalesForecastRowType: string
+{
+    case BodystyleTotal = 'bodystyle_total';
+    case Powertrain = 'powertrain';
+}
 
 class SalesForecast extends Model
 {
@@ -19,6 +26,7 @@ class SalesForecast extends Model
         'bodystyle_id',
         'category_item_id',
         'alternative_id',
+        'row_type',
         'sales_year',
         'sales_value',
         'segment_share',
@@ -35,6 +43,7 @@ class SalesForecast extends Model
         'sales_value' => 'decimal:1',
         'segment_share' => 'decimal:1',
         'make_share' => 'decimal:1',
+        'row_type' => SalesForecastRowType::class,
     ];
 
     /*
@@ -94,6 +103,16 @@ class SalesForecast extends Model
         return $query->where('alternative_id', $alternativeId);
     }
 
+    public function scopeBodystyleTotals(Builder $query): Builder
+    {
+        return $query->where('row_type', SalesForecastRowType::BodystyleTotal);
+    }
+
+    public function scopePowertrains(Builder $query): Builder
+    {
+        return $query->where('row_type', SalesForecastRowType::Powertrain);
+    }
+
     /*
      * Add a scope for “current published release”
      * Right now, callers must manually:
@@ -125,6 +144,16 @@ class SalesForecast extends Model
                 ->orderByDesc('published_at')
                 ->limit(1);
         });
+    }
+
+    public function getIsBodystyleTotalAttribute(): bool
+    {
+        return $this->row_type === SalesForecastRowType::BodystyleTotal;
+    }
+
+    public function getIsPowertrainAttribute(): bool
+    {
+        return $this->row_type === SalesForecastRowType::Powertrain;
     }
     /*
      * read-only guard (future-proofing)
