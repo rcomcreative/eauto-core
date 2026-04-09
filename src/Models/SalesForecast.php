@@ -8,12 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 use Laravel\Scout\Searchable;
 
-enum SalesForecastRowType: string
-{
-    case BodystyleTotal = 'bodystyle_total';
-    case Powertrain = 'powertrain';
-}
-
 class SalesForecast extends Model
 {
     use HasFactory, Searchable;
