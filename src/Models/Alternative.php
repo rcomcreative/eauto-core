@@ -15,9 +15,15 @@ class Alternative extends Model
         'name',
         'abbreviation',
         'color',
+        'is_system',
     ];
 
     public function vehicles() {
         return $this->belongsToMany(Vehicle::class)->withTimestamps();
+    }
+
+    public function scopeUserSelectable($query)
+    {
+        return $query->where('is_system', false);
     }
 }

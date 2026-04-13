@@ -13,10 +13,16 @@ class Bodystyle extends Model
     protected $fillable = [
         'id',
         'name',
-        'abbrev'
+        'abbrev',
+        'is_system',
     ];
 
     public function vehicles() {
         return $this->belongsToMany(Vehicle::class)->withTimestamps();
+    }
+
+    public function scopeUserSelectable($query)
+    {
+        return $query->where('is_system', false);
     }
 }
