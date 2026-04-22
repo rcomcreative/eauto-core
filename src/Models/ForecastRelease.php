@@ -152,6 +152,16 @@ class ForecastRelease extends Model
             ->limit(1);
     }
 
+    /**
+     * Defensive scope to prevent crashes when Filament or dynamic calls
+     * attempt to call a non-existent "none" scope.
+     * This safely returns an empty result set instead of throwing an error.
+     */
+    public function scopeNone(Builder $query): Builder
+    {
+        return $query->whereRaw('1 = 0');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Scout (Search)
