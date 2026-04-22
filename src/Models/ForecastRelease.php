@@ -222,4 +222,12 @@ class ForecastRelease extends Model
     {
         return $this->hasMany(\Eauto\Core\Models\StoredShareTotal::class, 'forecast_release_id');
     }
+
+    public function storedMakePowertrainTotals()
+    {
+        return $this->hasMany(
+            \Eauto\Core\Models\StoredMakePowertrainTotal::class,
+            'forecast_release_id'
+        );
+    }
 }
