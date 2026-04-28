@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Laravel\Scout\Searchable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Make extends Model
+class Make extends Model implements HasMedia
 {
-    use HasFactory, Searchable;
+    use HasFactory, Searchable, InteractsWithMedia;
 
     protected  $fillable = ['name','battleground','sales_forecast','manufacturer_id','division_id','id'];
 
