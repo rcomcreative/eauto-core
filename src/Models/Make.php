@@ -33,6 +33,22 @@ class Make extends Model implements HasMedia
     }
 
     /**
+     * Insight Files (PDFs) associated with this Make
+     */
+    public function insightFiles()
+    {
+        return $this->belongsToMany(
+            InsightFile::class,
+            'make_insight_files',
+            'make_id',
+            'insight_file_id'
+        )
+            ->using(MakeInsightFile::class)
+            ->withPivot('truck_flag')
+            ->withTimestamps();
+    }
+
+    /**
      * Stored make totals for a given forecast release / alternative / year / truck_flag.
      */
     public function storedMakeSalesTotals()
