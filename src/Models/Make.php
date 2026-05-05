@@ -24,7 +24,7 @@ class Make extends Model implements HasMedia
         return $this->belongsTo(Manufacturer::class);
     }
 
-    public function divisions() {
+    public function division() {
         return $this->belongsTo(Division::class);
     }
 
