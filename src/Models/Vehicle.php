@@ -157,8 +157,9 @@ class Vehicle extends Model
             ->where('deleteFlag', 0)
             ->orderBy('publishDate', 'DESC');
     }
-    public function pdfList() {
-        return $this->hasMany( \Eauto\Core\Models\VehiclePressRelease::class)
+    public function pressReleases()
+    {
+        return $this->hasMany(\Eauto\Core\Models\VehiclePressRelease::class)
             ->orderBy('sortColumn', 'DESC');
     }
 
