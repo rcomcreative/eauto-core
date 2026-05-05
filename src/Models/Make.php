@@ -43,7 +43,6 @@ class Make extends Model implements HasMedia
             'make_id',
             'insight_file_id'
         )
-            ->using(MakeInsightFile::class)
             ->withPivot('truck_flag')
             ->withTimestamps();
     }
