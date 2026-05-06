@@ -24,15 +24,16 @@ class VehiclePressRelease extends Model implements HasMedia
         return $this->belongsTo(Vehicle::class);
     }
 
+    public function getPdfUrlAttribute(): ?string
+    {
+        return $this->getFirstMediaUrl('press-releases');
+    }
+    
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('press-releases')
             ->useDisk('media')
             ->singleFile(); // one PDF per press release
-    }
-
-    public function getPdfUrlAttribute(): ?string
-    {
-        return $this->getFirstMediaUrl('press-releases');
     }
 }
