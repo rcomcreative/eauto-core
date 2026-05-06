@@ -27,7 +27,7 @@ class VehiclePressRelease extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('press-releases')
-            ->useDisk('spaces')
+            ->useDisk('media')
             ->singleFile(); // one PDF per press release
     }
 
