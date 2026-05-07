@@ -15,6 +15,7 @@ class VehiclePressRelease extends Model implements HasMedia
 
     protected $fillable = [
         'vehicle_id',
+        'pdf',
         'pdfCaption',
         'entryDate',
         'sortColumn',
@@ -28,7 +29,7 @@ class VehiclePressRelease extends Model implements HasMedia
     {
         return $this->getFirstMediaUrl('press-releases');
     }
-    
+
 
     public function registerMediaCollections(): void
     {
