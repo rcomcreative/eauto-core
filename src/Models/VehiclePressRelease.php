@@ -14,11 +14,13 @@ class VehiclePressRelease extends Model implements HasMedia
     use InteractsWithMedia;
 
     protected $fillable = [
+        'id',
         'vehicle_id',
-        'pdf',
+        'pdf',          // ← this MUST be here
         'pdfCaption',
+        'pdfPathway',
         'entryDate',
-        'sortColumn',
+        'sortColumn'
     ];
 
     public function vehicle() {
