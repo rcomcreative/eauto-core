@@ -14,11 +14,11 @@ class DepartmentCustomSegment extends Model
 
     protected $table = 'department_custom_segments';
 
-    public $incrementing = false;   // id comes from live data
+    protected $primaryKey = 'id';
+    public $incrementing = true;
     protected $keyType = 'int';
 
     protected $fillable = [
-        'id',
         'department_id',
         'segment_name',
     ];
