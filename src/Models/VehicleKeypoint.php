@@ -10,8 +10,16 @@ class VehicleKeypoint extends Model
 {
     use HasFactory, Searchable;
 
-    protected  $fillable = ['id','admin_id','vehicle_id','make_id','keypoint_text','entry_time','modified','live','time_stamp'];
-
+    protected $fillable = [
+        'entry_date',
+        'time_stamp',
+        'modified',
+        'keypoint_text',
+        'live',
+        'admin_id',
+        'make_id',
+        'vehicle_id',
+    ];
     public function vehicle() {
         return $this->belongsTo(Vehicle::class);
     }
