@@ -24,13 +24,19 @@ class VehiclePressRelease extends Model implements HasMedia
         'sortColumn',
     ];
 
+    protected $appends = [
+        'pdf_url',
+    ];
+
     public function vehicle() {
         return $this->belongsTo(Vehicle::class);
     }
 
     public function getPdfUrlAttribute(): ?string
     {
-        return $this->getFirstMediaUrl('press-releases');
+        $url = $this->getFirstMediaUrl('press-releases');
+
+        return $url !== '' ? $url : null;
     }
 
 
