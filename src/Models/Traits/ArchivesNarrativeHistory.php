@@ -10,6 +10,7 @@ trait ArchivesNarrativeHistory
     public static function bootArchivesNarrativeHistory(): void
     {
         static::updating(function ($model) {
+            //documenting changes to the ArchivesNarrativeHistory for git dj 06032026
             Log::info('ArchivesNarrativeHistory updating', [
                 'model' => get_class($model),
                 'id' => $model->getKey(),
