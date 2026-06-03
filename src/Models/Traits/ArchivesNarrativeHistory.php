@@ -7,10 +7,13 @@ use Illuminate\Support\Facades\Log;
 
 trait ArchivesNarrativeHistory
 {
-    public static function bootArchivesNarrativeHistory(): void
+    protected static function bootArchivesNarrativeHistory(): void
     {
+        Log::info('ArchivesNarrativeHistory booted', [
+            'trait' => static::class,
+        ]);
+
         static::updating(function ($model) {
-            //documenting changes to the ArchivesNarrativeHistory for git dj 06032026
             Log::info('ArchivesNarrativeHistory updating', [
                 'model' => get_class($model),
                 'id' => $model->getKey(),
