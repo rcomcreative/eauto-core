@@ -20,6 +20,7 @@ class Vehicle extends Model
 
     /*casts*/
     // app/Models/Vehicle.php
+    // removed truck_flag
     protected $casts = [
         'Delete_flag'         => 'bool',
         'Active_flag'         => 'bool',
