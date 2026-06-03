@@ -21,7 +21,6 @@ class Vehicle extends Model
     /*casts*/
     // app/Models/Vehicle.php
     protected $casts = [
-        'Truck_flag'          => 'bool',
         'Delete_flag'         => 'bool',
         'Active_flag'         => 'bool',
         'SalesForecast_flag'  => 'bool',
