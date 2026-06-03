@@ -40,7 +40,7 @@ class VehicleFutureIntel extends Model
 
     protected function getHistoryModelClass(): string
     {
-        return VehiclePriorGenerationInfoHistory::class;
+        return VehicleFutureIntelHistory::class;
     }
 
 }

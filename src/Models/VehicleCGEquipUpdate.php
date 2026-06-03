@@ -40,7 +40,7 @@ class VehicleCGEquipUpdate extends Model
 
     protected function getHistoryModelClass(): string
     {
-        return VehiclePriorGenerationInfoHistory::class;
+        return VehicleCGEquipUpdateHistory::class;
     }
 
 }

@@ -40,7 +40,7 @@ class VehicleConfigPowerTrainProfile extends Model
 
     protected function getHistoryModelClass(): string
     {
-        return VehiclePriorGenerationInfoHistory::class;
+        return VehicleConfigPowerTrainProfileHistory::class;
     }
 
 }

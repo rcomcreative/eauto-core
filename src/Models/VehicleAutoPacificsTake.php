@@ -40,7 +40,7 @@ class VehicleAutoPacificsTake extends Model
 
     protected function getHistoryModelClass(): string
     {
-        return VehiclePriorGenerationInfoHistory::class;
+        return VehicleAutoPacificsTakeHistory::class;
     }
 
 }

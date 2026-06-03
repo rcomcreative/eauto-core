@@ -40,6 +40,6 @@ class VehicleCGLaunchInfo extends Model
 
     protected function getHistoryModelClass(): string
     {
-        return VehiclePriorGenerationInfoHistory::class;
+        return VehicleCGLaunchInfoHistory::class;
     }
 }
