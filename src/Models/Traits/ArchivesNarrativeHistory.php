@@ -3,12 +3,18 @@
 namespace Eauto\Core\Models\Traits;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 trait ArchivesNarrativeHistory
 {
     public static function bootArchivesNarrativeHistory(): void
     {
         static::updating(function ($model) {
+            Log::info('ArchivesNarrativeHistory updating', [
+                'model' => get_class($model),
+                'id' => $model->getKey(),
+            ]);
+
             $model->archiveCurrentState();
         });
     }
@@ -16,6 +22,12 @@ trait ArchivesNarrativeHistory
     protected function archiveCurrentState(): void
     {
         $historyModelClass = $this->getHistoryModelClass();
+
+        Log::info('ArchivesNarrativeHistory archiveCurrentState', [
+            'model' => static::class,
+            'source_id' => $this->getKey(),
+            'history_model' => $historyModelClass,
+        ]);
 
         if (! class_exists($historyModelClass)) {
             throw new \RuntimeException(sprintf(
@@ -33,7 +45,18 @@ trait ArchivesNarrativeHistory
 
         $historyData = $this->buildHistoryPayload();
 
-        $historyModelClass::create($historyData);
+        Log::info('ArchivesNarrativeHistory creating history row', [
+            'history_model' => $historyModelClass,
+            'source_id' => $this->getKey(),
+        ]);
+
+        $historyRecord = $historyModelClass::create($historyData);
+
+        Log::info('ArchivesNarrativeHistory history row created', [
+            'history_model' => $historyModelClass,
+            'history_id' => $historyRecord->getKey(),
+            'source_id' => $this->getKey(),
+        ]);
     }
 
     protected function buildHistoryPayload(): array
