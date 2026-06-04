@@ -13,6 +13,15 @@ trait ArchivesNarrativeHistory
             'trait' => static::class,
         ]);
 
+        static::created(function ($model) {
+            Log::info('ArchivesNarrativeHistory created', [
+                'model' => get_class($model),
+                'id' => $model->getKey(),
+            ]);
+
+            $model->archiveCurrentState();
+        });
+
         static::updating(function ($model) {
             Log::info('ArchivesNarrativeHistory updating', [
                 'model' => get_class($model),
