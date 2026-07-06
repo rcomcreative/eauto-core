@@ -13,7 +13,16 @@ class Make extends Model implements HasMedia
 {
     use HasFactory, Searchable, InteractsWithMedia;
 
-    protected  $fillable = ['name','battleground','sales_forecast','manufacturer_id','division_id','id'];
+    protected $fillable = [
+        'id',
+        'manufacturer_id',
+        'division_id',
+        'name',
+        'urlname',
+        'battleground',
+        'sales_forecast',
+        'autopacific_take',
+    ];
 
     protected $casts = [
         'battleground' => 'boolean',
