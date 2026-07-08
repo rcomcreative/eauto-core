@@ -213,7 +213,7 @@ class Vehicle extends Model
 
     /*priceranges hasMany*/
     public function priceranges() {
-        return $this->hasMany(...)
+        return $this->hasMany(\Eauto\Core\Models\VehiclePriceRange::class)
             ->where('delete_flag', 0)
             ->orderByRaw('CASE WHEN `order` IS NULL OR `order` = 0 THEN 1 ELSE 0 END')
             ->orderBy('order')
