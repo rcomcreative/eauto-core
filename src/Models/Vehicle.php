@@ -103,7 +103,19 @@ class Vehicle extends Model
     /*keypoint hasOne*/
     public function keypoint() {
         return $this->hasOne(\Eauto\Core\Models\VehicleKeypoint::class)
-            ->where('live','1');
+            ->where('live', 1)
+            ->orderByRaw('CASE WHEN `order` IS NULL OR `order` = 0 THEN 1 ELSE 0 END')
+            ->orderBy('order')
+            ->orderBy('id');
+    }
+
+    public function keypoints()
+    {
+        return $this->hasMany(\Eauto\Core\Models\VehicleKeypoint::class)
+            ->where('live', 1)
+            ->orderByRaw('CASE WHEN `order` IS NULL OR `order` = 0 THEN 1 ELSE 0 END')
+            ->orderBy('order')
+            ->orderBy('id');
     }
 
     /*main photo hasOne*/
@@ -114,10 +126,14 @@ class Vehicle extends Model
     }
 
     /* suspension hasOne*/
-    public function vehicleSuspension() {
-        return $this->hasOne(\Eauto\Core\Models\VehicleSuspension::class);
+    public function vehicleSuspensions()
+    {
+        return $this->hasMany(\Eauto\Core\Models\VehicleSuspension::class)
+            ->where('delete_flag', 0)
+            ->orderByRaw('CASE WHEN `order` IS NULL OR `order` = 0 THEN 1 ELSE 0 END')
+            ->orderBy('order')
+            ->orderBy('id');
     }
-
 
     /* cgequipupdate hasOne*/
     public function futureIntel()
@@ -197,11 +213,10 @@ class Vehicle extends Model
 
     /*priceranges hasMany*/
     public function priceranges() {
-        return $this->hasMany(\Eauto\Core\Models\VehiclePriceRange::class)
+        return $this->hasMany(...)
             ->where('delete_flag', 0)
             ->orderByRaw('CASE WHEN `order` IS NULL OR `order` = 0 THEN 1 ELSE 0 END')
             ->orderBy('order')
-            ->orderBy('time_stamp')
             ->orderBy('id');
     }
 
@@ -266,19 +281,26 @@ class Vehicle extends Model
 
     /*drives belongsToMany*/
     public function drives() {
-        return $this->belongsToMany(\Eauto\Core\Models\Drive::class)->withTimestamps();
+        return $this->belongsToMany(\Eauto\Core\Models\Drive::class)
+            ->withPivot('sort_order')
+            ->withTimestamps()
+            ->orderByPivot('sort_order');
     }
 
     /*seats belongsToMany*/
     public function seats() {
-        return $this->belongsToMany(\Eauto\Core\Models\Seat::class)->withTimestamps();
+        return $this->belongsToMany(\Eauto\Core\Models\Seat::class)
+            ->withPivot('sort_order')
+            ->withTimestamps()
+            ->orderByPivot('sort_order');
     }
 
     /*bodystyles belongsToMany NOTUSED*/
     public function bodystyles() {
         return $this->belongsToMany(\Eauto\Core\Models\Bodystyle::class, 'bodystyle_vehicle')
+            ->withPivot('sort_order')
             ->withTimestamps()
-            ->orderBy('bodystyles.name','ASC');
+            ->orderByPivot('sort_order');
     }
 
 
@@ -290,7 +312,10 @@ class Vehicle extends Model
 
     /*transmission belongsToMany */
     public function transmissions() {
-        return $this->belongsToMany(\Eauto\Core\Models\Transmission::class)->withTimestamps();
+        return $this->belongsToMany(\Eauto\Core\Models\Transmission::class)
+            ->withPivot('sort_order')
+            ->withTimestamps()
+            ->orderByPivot('sort_order');
     }
 
     // If you still want a “list of all segments” helper,
