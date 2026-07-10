@@ -14,7 +14,7 @@ class VehicleSuspension extends Model
         'id',
         'vehicle_id',
         'front_suspension',
-        'rear_suspenstion',
+        'rear_suspension',
         'delete_flag',
         'order'
     ];
