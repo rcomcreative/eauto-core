@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     public $timestamps = true; // live has created_at/updated_at (nullable)
-    protected $fillable = [
-        'companyname','companylogo','avatar_color','country','state','city','zipcode',
-        'address1','address2','dayphone','nightphone','fax','po','history','contact_email', 'send_welcome_email',
-        'competitive_battleground','competitive_startdate','competitive_enddate',
-        'sales_forecast','sales_startdate','sales_enddate','master_id','active',
-    ];
 
+    protected $fillable = [
+        'companyname', 'companylogo', 'avatar_color', 'country', 'state', 'city', 'zipcode',
+        'address1', 'address2', 'dayphone', 'nightphone', 'fax', 'po', 'history', 'contact_email', 'send_welcome_email',
+        'competitive_battleground', 'competitive_startdate', 'competitive_enddate',
+        'sales_forecast', 'sales_startdate', 'sales_enddate', 'master_id', 'active',
+    ];
 
     /**
      * Users who belong to this department via the team_users pivot.
@@ -22,7 +22,7 @@ class Department extends Model
     public function users()
     {
         return $this->belongsToMany(
-            \Eauto\Core\Models\User::class,
+            User::class,
             'team_users',
             'department_id',
             'user_id'
@@ -37,13 +37,24 @@ class Department extends Model
      */
     public function teams()
     {
-        return $this->belongsToMany(\Eauto\Core\Models\Team::class, 'team_users', 'department_id', 'team_id')
+        return $this->belongsToMany(Team::class, 'team_users', 'department_id', 'team_id')
             ->withPivot(['user_id', 'role'])
             ->withTimestamps();
     }
 
     public function customSegments()
     {
-        return $this->hasMany(\Eauto\Core\Models\DepartmentCustomSegment::class, 'department_id');
+        return $this->hasMany(DepartmentCustomSegment::class, 'department_id');
+    }
+
+    public function userSessions()
+    {
+        return $this->hasMany(UserSession::class);
+    }
+
+    public function sessionDurationPolicies()
+    {
+        return $this->hasMany(SessionDurationPolicy::class, 'scope_id')
+            ->where('scope_type', SessionDurationPolicy::SCOPE_DEPARTMENT);
     }
 }

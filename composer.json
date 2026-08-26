@@ -7,7 +7,10 @@
     "psr-4": { "Eauto\\Core\\": "src/" }
   },
   "scripts": {
-    "test": "@php tests/model_compatibility_smoke.php"
+    "test": [
+      "@php tests/model_compatibility_smoke.php",
+      "@php -d zend.assertions=1 -d assert.exception=1 tests/session_tracking_smoke.php"
+    ]
   },
   "require": {
     "php": "^8.3|^8.4|^8.5",
