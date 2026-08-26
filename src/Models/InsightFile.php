@@ -53,7 +53,7 @@ class InsightFile extends Model implements HasMedia
     /**
      * Media conversions (placeholder for future use)
      */
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         // Example (disabled for now):
         // $this->addMediaConversion('thumb')
