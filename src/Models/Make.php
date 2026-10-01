@@ -27,7 +27,17 @@ class Make extends Model implements HasMedia
     protected $casts = [
         'battleground' => 'boolean',
         'sales_forecast' => 'boolean',
+        'autopacific_take_updated_at' => 'datetime',
     ];
+
+    protected static function booted(): void
+    {
+        static::saving(function (Make $make): void {
+            if ($make->isDirty('autopacific_take')) {
+                $make->autopacific_take_updated_at = now();
+            }
+        });
+    }
 
     public function manufacturer() {
         return $this->belongsTo(Manufacturer::class);
